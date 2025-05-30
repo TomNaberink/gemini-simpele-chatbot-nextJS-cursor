@@ -1,159 +1,138 @@
-# 🤖 Gemini AI Template - Next.js
+# 🚀 Gemini API Template - Next.js
 
-> Een professionele template om snel te starten met Gemini AI projecten
-> 
+> Een ultra-lean, professionele template om direct te starten met Gemini API projecten.
+>
 > **Gemaakt door Tom Naberink**
 
-Een kant-en-klare Next.js template met veilige Gemini AI integratie. Perfect als startpunt voor je eigen AI-projecten!
+Een direct bruikbare Next.js template met een veilige Gemini API integratie en een ingebouwde API key tester. Ideaal als startpunt voor jouw innovatieve AI-projecten, speciaal gericht op het onderwijs!
 
 ## ✨ Features
 
-- 💜 **Moderne UI**: Prachtige paarse interface met Tailwind CSS
-- 🔒 **Veilige API**: Gemini API keys blijven server-side
-- ⚡ **Ready to Use**: Clone en begin direct met bouwen
-- 📱 **Responsive**: Werkt perfect op alle apparaten
-- 🚀 **Next.js 15**: Nieuwste versie met TypeScript
-- 🛡️ **Best Practices**: Professionele code structuur
+- 💜 **Moderne & Clean UI**: Strakke paarse interface met Tailwind CSS.
+- 🔒 **Veilige API Key Setup**: Gemini API keys blijven server-side en worden direct getest.
+- ⚡ **Direct Starten**: Clone, configureer je API key, test, en begin met bouwen!
+- 📱 **Responsive Design**: Werkt perfect op alle apparaten.
+- 🚀 **Next.js 15 & TypeScript**: Gebouwd met de nieuwste technologieën.
+- 🛠️ **Ultra-Lean**: Geen overbodige code, enkel de essentials.
+- 💡 **Onderwijs Focus**: Met een call-to-action gericht op onderwijsinnovatie.
 
-## 🚀 Snelle Start
+## 🚀 Snelle Start: In 4 Stappen naar Gemini!
 
-### 1️⃣ Clone deze repository
+### Stap 1: Verkrijg een Gemini API Key
+Ga naar [Google AI Studio](https://makersuite.google.com/app/apikey) en maak je gratis API key aan.
 
-```bash
-git clone https://github.com/TomNaberink/gemini-simpele-chatbot-nextJS-cursor.git
-cd gemini-simpele-chatbot-nextJS-cursor
-```
+⚠️ **Let op**: Je kunt gratis en risicovrij oefenen met de Gemini API. Daarnaast kun je $300 gratis budget krijgen. Als dat op is, moet je het koppelen aan je creditcard. Zorg ervoor dat je weet wat je doet op dat moment!
 
-### 2️⃣ Installeer dependencies
-
-```bash
-npm install
-```
-
-### 3️⃣ Verkrijg een Gemini API Key
-
-1. Ga naar [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Log in met je Google account
-3. Klik op "Create API Key"
-4. Kopieer de gegenereerde API key
-
-### 4️⃣ Configureer environment variabelen
-
-Maak een `.env.local` bestand in de root directory:
+### Stap 2: Configureer je API Key Lokaal
+Maak een `.env.local` bestand in de root van je project en voeg je API key toe:
 
 ```env
-GEMINI_API_KEY=your_actual_api_key_here
+GEMINI_API_KEY=your_actual_gemini_api_key_here
 ```
+Vervang `your_actual_gemini_api_key_here` met jouw echte API key.
 
-⚠️ **Belangrijk**: Vervang `your_actual_api_key_here` met je echte API key!
-
-### 5️⃣ Start de development server
-
+### Stap 3: Test je API Key Direct
+Start de development server:
 ```bash
+npm install # Als je dit nog niet gedaan hebt
 npm run dev
 ```
+Open [http://localhost:3000](http://localhost:3000) in je browser. Je kunt nu direct je API key testen met de ingebouwde test-chatbot!
 
-Open [http://localhost:3000](http://localhost:3000) in je browser.
+### Stap 4: Bouwen maar!
+Wat ga jij maken om het onderwijs te verbeteren? De Gemini API staat tot je beschikking!
 
-## 🛠️ Gebruik de API
+## 🛠️ API Gebruik (Voorbeeld)
 
-Je Gemini AI API is beschikbaar op:
-
-### POST `/api/chat`
+Je Gemini API is beschikbaar via een `POST` request naar `/api/chat`.
 
 ```javascript
-const response = await fetch('/api/chat', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ 
-    message: 'Hallo Gemini!' 
-  }),
-})
+async function callGemini(userMessage) {
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: userMessage }),
+    });
 
-const data = await response.json()
-console.log(data.response) // AI response
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Er is een fout opgetreden');
+    }
+
+    const data = await response.json();
+    return data.response; // Dit is het antwoord van Gemini
+  } catch (error) {
+    console.error("Fout bij het aanroepen van de Gemini API:", error);
+    // Handel de fout hier af in je UI
+    return null;
+  }
+}
+
+// Voorbeeld aanroep:
+// callGemini("Leg kwantumfysica uit in simpele termen").then(aiResponse => {
+//   if (aiResponse) {
+//     console.log("Gemini:", aiResponse);
+//   }
+// });
 ```
 
-## 📁 Project Structuur
+## 📁 Project Structuur (Lean & Mean)
 
 ```
+.
+├── .env.local                # 🔑 Jouw API Key (zelf aanmaken!)
+├── .gitignore                # Beschermt gevoelige bestanden
+├── next.config.js            # Next.js configuratie (dev UI uit)
+├── package.json              # Project dependencies
+├── README.md                 # Deze documentatie
 ├── src/
 │   ├── app/
-│   │   ├── api/chat/route.ts    # 🔒 Veilige Gemini API endpoint
-│   │   ├── layout.tsx           # App layout
-│   │   ├── page.tsx            # Template homepage
-│   │   └── globals.css         # Global styles
-│   └── components/             # Herbruikbare componenten
-├── .env.local                  # 🔑 API keys (maak dit aan!)
-├── .gitignore                  # Beschermt gevoelige bestanden
-└── README.md                   # Deze documentatie
+│   │   ├── api/chat/route.ts # 🔥 KERN: Veilige Gemini API endpoint
+│   │   ├── globals.css       # Tailwind CSS basis
+│   │   ├── layout.tsx        # Hoofd layout (hydration fix)
+│   │   └── page.tsx          # De template startpagina
+│   └── components/
+│       └── TestChatBot.tsx   # 💬 Ingebouwde API Key Tester
+└── tsconfig.json             # TypeScript configuratie
 ```
 
 ## 🎨 Customization
 
-### UI Aanpassen
-
-De template gebruikt Tailwind CSS met een paarse kleurenpalet:
-
-- **Primary**: `purple-600`, `purple-700`
-- **Accent**: `indigo-100`, `purple-50`
-- **Gradients**: `from-purple-50 to-indigo-100`
-
-### Gemini Model Wijzigen
-
-In `src/app/api/chat/route.ts`:
-
+### Gemini Model
+Het huidige model is `gemini-2.5-flash-preview-05-20`. Je kunt dit aanpassen in `src/app/api/chat/route.ts`:
 ```typescript
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-05-20' });
 ```
+Andere modellen zoals `gemini-1.5-pro-latest` zijn ook beschikbaar. Check de [Google documentatie](https://ai.google.dev/models/gemini) voor de meest recente lijst.
 
-Beschikbare modellen:
-- `gemini-1.5-flash` - Snel en efficiënt
-- `gemini-1.5-pro` - Geavanceerde mogelijkheden
+### Styling
+De UI gebruikt Tailwind CSS met een paars kleurenschema. Pas `src/app/globals.css` en de Tailwind classes in de `.tsx` bestanden aan voor een eigen look.
 
 ## 🚀 Deployment
 
 ### Vercel (Aanbevolen)
+1. Push je code naar GitHub.
+2. Ga naar [Vercel](https://vercel.com) en importeer je repository.
+3. Voeg je `GEMINI_API_KEY` toe als Environment Variable in de Vercel projectinstellingen.
+4. Deploy!
 
-1. Push naar GitHub
-2. Ga naar [Vercel](https://vercel.com)
-3. Import je repository
-4. Voeg `GEMINI_API_KEY` toe in Environment Variables
-5. Deploy!
-
-### Andere platforms
-
-Zorg ervoor dat:
-- Node.js 18+ wordt ondersteund
-- Environment variabelen kunnen worden ingesteld
+### Andere Platforms
+Zorg ervoor dat je platform Node.js 18+ ondersteunt en je environment variabelen kunt instellen.
 - Build command: `npm run build`
 - Start command: `npm start`
 
-## 🔒 Beveiliging
-
-Deze template implementeert best practices:
-
-- ✅ **Server-side API calls**: Gemini wordt alleen server-side aangeroepen
-- ✅ **Environment variables**: API keys blijven privé
-- ✅ **Input validatie**: Berichten worden gecontroleerd
-- ✅ **Error handling**: Veilige error responses
+## 🛡️ Ingebouwde Robuustheid
+- **Veilige API Keys**: Keys worden server-side gehouden.
+- **Input Validatie**: Basisvalidatie op de API route.
+- **Development UI Uitgeschakeld**: `devIndicators: false` in `next.config.js` voor een clean dev ervaring.
+- **Hydration Warning Onderdrukt**: `suppressHydrationWarning` op `<body>` in `layout.tsx` voor compatibiliteit met browser extensies.
 
 ## 🤝 Bijdragen
-
-Bijdragen zijn welkom! Voel je vrij om:
-
-- 🐛 Issues te rapporteren
-- 💡 Verbeteringen voor te stellen
-- 🔧 Pull requests in te dienen
-
-## 📝 Licentie
-
-Dit project is open source en beschikbaar onder de MIT licentie.
+Voel je vrij om deze template te forken, te verbeteren en pull requests in te dienen!
 
 ---
 
-**💜 Gemaakt met passie door Tom Naberink**
-
-*Happy coding! 🚀* 
+**💜 Gemaakt met passie door Tom Naberink. Veel bouwplezier!** 
