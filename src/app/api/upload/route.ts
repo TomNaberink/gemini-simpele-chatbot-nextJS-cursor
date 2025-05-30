@@ -17,8 +17,8 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    // Extract text from the Word document using arrayBuffer option
-    const result = await mammoth.extractRawText({ arrayBuffer: bytes })
+    // Extract text from the Word document using buffer option
+    const result = await mammoth.extractRawText({ buffer: buffer })
     
     if (!result.value) {
       throw new Error('Failed to extract text from document')
