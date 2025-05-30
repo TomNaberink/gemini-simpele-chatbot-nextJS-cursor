@@ -3,8 +3,12 @@ const nextConfig = {
   devIndicators: false,
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // Handle pdf-parse test files on server-side
-      config.resolve.alias['./test/data/05-versions-space.pdf'] = false;
+      config.plugins.push(
+        new config.webpack.IgnorePlugin({
+          resourceRegExp: /\.pdf$/,
+          contextRegExp: /pdf-parse\/test\/data/,
+        })
+      );
     }
     return config;
   }
