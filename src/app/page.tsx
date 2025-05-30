@@ -1,3 +1,4 @@
+import SimpleChat from '@/components/SimpleChat'
 import TestChatBot from '@/components/TestChatBot'
 import DocumentUpload from '@/components/DocumentUpload'
 
@@ -22,6 +23,9 @@ export default function Home() {
             Dit is een template om met Gemini te werken, gemaakt door Tom Naberink
           </p>
         </div>
+
+        {/* Chat Component */}
+        <SimpleChat />
 
         {/* Document Upload Component */}
         <DocumentUpload />
