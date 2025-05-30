@@ -1,9 +1,5 @@
 import TestChatBot from '@/components/TestChatBot'
-import dynamic from 'next/dynamic'
-
-const DocumentUpload = dynamic(() => import('@/components/DocumentUpload'), {
-  ssr: false
-})
+import DocumentUpload from '@/components/DocumentUpload'
 
 export default function Home() {
   return (
@@ -13,7 +9,9 @@ export default function Home() {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-600 rounded-full mb-6">
-            <span className="text-2xl">🚀</span>
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
           </div>
           
           <h1 className="text-5xl font-bold text-gray-800 mb-4">
@@ -25,19 +23,11 @@ export default function Home() {
           </p>
         </div>
 
+        {/* Document Upload Component */}
+        <DocumentUpload />
+
         {/* Main Content */}
-        <div className="max-w-4xl mx-auto">
-          
-          {/* Document Upload Section */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <h2 className="text-2xl font-bold text-purple-800 mb-6 flex items-center">
-              <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                📄
-              </span>
-              Document Upload
-            </h2>
-            <DocumentUpload />
-          </div>
+        <div className="max-w-4xl mx-auto mt-8">
           
           {/* Setup Instructions */}
           <div className="bg-white rounded-2xl shadow-xl p-8">
@@ -64,7 +54,9 @@ export default function Home() {
                   className="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
                 >
                   <span>Verkrijg API Key</span>
-                  <span className="ml-2">↗</span>
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
                 </a>
                 
                 <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-lg">
