@@ -1,146 +1,159 @@
-# Gemini AI Chatbot
+# 🤖 Gemini AI Template - Next.js
 
-Een eenvoudige maar krachtige chatbot applicatie gebouwd met Next.js en Google's Gemini AI. Deze applicatie toont hoe je veilig een AI chatbot kunt implementeren waarbij API keys server-side worden gehouden.
+> Een professionele template om snel te starten met Gemini AI projecten
+> 
+> **Gemaakt door Tom Naberink**
+
+Een kant-en-klare Next.js template met veilige Gemini AI integratie. Perfect als startpunt voor je eigen AI-projecten!
 
 ## ✨ Features
 
-- 🤖 **Gemini AI Integration**: Gebruikt Google's geavanceerde Gemini AI model
-- 🔒 **Veilige API**: API keys worden server-side gehouden via Next.js API routes
-- 💬 **Real-time Chat**: Interactieve chat interface met typing indicators
-- 📱 **Responsive Design**: Werkt perfect op desktop en mobiel
-- 🎨 **Moderne UI**: Gebouwd met Tailwind CSS voor een strakke uitstraling
+- 💜 **Moderne UI**: Prachtige paarse interface met Tailwind CSS
+- 🔒 **Veilige API**: Gemini API keys blijven server-side
+- ⚡ **Ready to Use**: Clone en begin direct met bouwen
+- 📱 **Responsive**: Werkt perfect op alle apparaten
+- 🚀 **Next.js 15**: Nieuwste versie met TypeScript
+- 🛡️ **Best Practices**: Professionele code structuur
 
 ## 🚀 Snelle Start
 
-### Voorvereisten
+### 1️⃣ Clone deze repository
 
-- Node.js 18+ geïnstalleerd
-- Een Google Gemini API key ([verkrijg hier](https://makersuite.google.com/app/apikey))
+```bash
+git clone https://github.com/TomNaberink/gemini-simpele-chatbot-nextJS-cursor.git
+cd gemini-simpele-chatbot-nextJS-cursor
+```
 
-### Installatie
+### 2️⃣ Installeer dependencies
 
-1. **Dependencies installeren**
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-2. **Environment variabelen instellen**
-   
-   Maak een `.env.local` bestand in de root directory:
-   ```env
-   GEMINI_API_KEY=your_actual_gemini_api_key_here
-   ```
-   
-   ⚠️ **Belangrijk**: Vervang `your_actual_gemini_api_key_here` met je echte Gemini API key!
-
-3. **Development server starten**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open je browser**
-   
-   Ga naar [http://localhost:3000](http://localhost:3000) om de chatbot te gebruiken.
-
-## 🔧 Configuratie
-
-### Gemini API Key verkrijgen
+### 3️⃣ Verkrijg een Gemini API Key
 
 1. Ga naar [Google AI Studio](https://makersuite.google.com/app/apikey)
 2. Log in met je Google account
 3. Klik op "Create API Key"
 4. Kopieer de gegenereerde API key
-5. Plak deze in je `.env.local` bestand
 
-### Environment Variabelen
+### 4️⃣ Configureer environment variabelen
 
-| Variabele | Beschrijving | Vereist |
-|-----------|--------------|---------|
-| `GEMINI_API_KEY` | Je Google Gemini API key | Ja |
+Maak een `.env.local` bestand in de root directory:
+
+```env
+GEMINI_API_KEY=your_actual_api_key_here
+```
+
+⚠️ **Belangrijk**: Vervang `your_actual_api_key_here` met je echte API key!
+
+### 5️⃣ Start de development server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in je browser.
+
+## 🛠️ Gebruik de API
+
+Je Gemini AI API is beschikbaar op:
+
+### POST `/api/chat`
+
+```javascript
+const response = await fetch('/api/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ 
+    message: 'Hallo Gemini!' 
+  }),
+})
+
+const data = await response.json()
+console.log(data.response) // AI response
+```
 
 ## 📁 Project Structuur
 
 ```
-src/
-├── app/
-│   ├── api/
-│   │   └── chat/
-│   │       └── route.ts          # Beveiligde API endpoint voor Gemini
-│   ├── globals.css               # Globale styling
-│   ├── layout.tsx               # Root layout
-│   └── page.tsx                 # Hoofdpagina
-├── components/
-│   └── ChatBot.tsx              # Chat interface component
+├── src/
+│   ├── app/
+│   │   ├── api/chat/route.ts    # 🔒 Veilige Gemini API endpoint
+│   │   ├── layout.tsx           # App layout
+│   │   ├── page.tsx            # Template homepage
+│   │   └── globals.css         # Global styles
+│   └── components/             # Herbruikbare componenten
+├── .env.local                  # 🔑 API keys (maak dit aan!)
+├── .gitignore                  # Beschermt gevoelige bestanden
+└── README.md                   # Deze documentatie
 ```
-
-## 🛡️ Beveiliging
-
-Deze applicatie implementeert best practices voor API beveiliging:
-
-- **Server-side API calls**: Gemini API wordt alleen aangeroepen vanaf de server
-- **Environment variabelen**: API keys worden nooit blootgesteld aan de client
-- **Error handling**: Veilige error responses zonder gevoelige informatie
-- **Input validatie**: Berichten worden gevalideerd voordat ze worden verwerkt
 
 ## 🎨 Customization
 
-### Styling aanpassen
+### UI Aanpassen
 
-De app gebruikt Tailwind CSS. Je kunt de styling aanpassen in:
-- `src/components/ChatBot.tsx` - Chat interface styling
-- `src/app/globals.css` - Globale styles
-- `tailwind.config.js` - Tailwind configuratie
+De template gebruikt Tailwind CSS met een paarse kleurenpalet:
 
-### Gemini model wijzigen
+- **Primary**: `purple-600`, `purple-700`
+- **Accent**: `indigo-100`, `purple-50`
+- **Gradients**: `from-purple-50 to-indigo-100`
 
-In `src/app/api/chat/route.ts` kun je het Gemini model aanpassen:
+### Gemini Model Wijzigen
+
+In `src/app/api/chat/route.ts`:
 
 ```typescript
-const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
+const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 ```
 
 Beschikbare modellen:
-- `gemini-pro` - Voor tekst
-- `gemini-pro-vision` - Voor tekst en afbeeldingen
+- `gemini-1.5-flash` - Snel en efficiënt
+- `gemini-1.5-pro` - Geavanceerde mogelijkheden
 
 ## 🚀 Deployment
 
 ### Vercel (Aanbevolen)
 
-1. Push je code naar GitHub
+1. Push naar GitHub
 2. Ga naar [Vercel](https://vercel.com)
 3. Import je repository
-4. Voeg je `GEMINI_API_KEY` toe in de Environment Variables
+4. Voeg `GEMINI_API_KEY` toe in Environment Variables
 5. Deploy!
 
 ### Andere platforms
 
-Voor andere platforms, zorg ervoor dat:
+Zorg ervoor dat:
 - Node.js 18+ wordt ondersteund
 - Environment variabelen kunnen worden ingesteld
-- De build command `npm run build` is
-- De start command `npm start` is
+- Build command: `npm run build`
+- Start command: `npm start`
 
-## 🐛 Troubleshooting
+## 🔒 Beveiliging
 
-### "GEMINI_API_KEY is niet ingesteld"
-- Controleer of je `.env.local` bestand bestaat
-- Zorg dat de variabele exact `GEMINI_API_KEY` heet
-- Herstart de development server na het toevoegen van environment variabelen
+Deze template implementeert best practices:
 
-### Chat reageert niet
-- Controleer je internetverbinding
-- Verificeer dat je API key geldig is
-- Bekijk de browser console voor error berichten
+- ✅ **Server-side API calls**: Gemini wordt alleen server-side aangeroepen
+- ✅ **Environment variables**: API keys blijven privé
+- ✅ **Input validatie**: Berichten worden gecontroleerd
+- ✅ **Error handling**: Veilige error responses
 
-### Styling werkt niet
-- Zorg dat Tailwind CSS correct is geïnstalleerd
-- Controleer of `globals.css` wordt geïmporteerd
+## 🤝 Bijdragen
+
+Bijdragen zijn welkom! Voel je vrij om:
+
+- 🐛 Issues te rapporteren
+- 💡 Verbeteringen voor te stellen
+- 🔧 Pull requests in te dienen
 
 ## 📝 Licentie
 
 Dit project is open source en beschikbaar onder de MIT licentie.
 
-## 🤝 Bijdragen
+---
 
-Bijdragen zijn welkom! Voel je vrij om issues te openen of pull requests in te dienen. 
+**💜 Gemaakt met passie door Tom Naberink**
+
+*Happy coding! 🚀* 
