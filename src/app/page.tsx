@@ -1,5 +1,9 @@
+import dynamic from 'next/dynamic'
 import TestChatBot from '@/components/TestChatBot'
-import DocumentUpload from '@/components/DocumentUpload'
+
+const DocumentUpload = dynamic(() => import('@/components/DocumentUpload'), {
+  ssr: false,
+})
 
 export default function Home() {
   return (
