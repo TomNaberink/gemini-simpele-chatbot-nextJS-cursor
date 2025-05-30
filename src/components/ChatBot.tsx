@@ -84,9 +84,9 @@ export default function ChatBot() {
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
       {/* Header */}
-      <div className="bg-blue-600 text-white p-4">
+      <div className="bg-purple-600 text-white p-4">
         <h1 className="text-xl font-semibold">Gemini AI Chatbot</h1>
-        <p className="text-blue-100 text-sm">Powered by Google Gemini</p>
+        <p className="text-purple-100 text-sm">Powered by Google Gemini</p>
       </div>
 
       {/* Chat Messages */}
@@ -99,13 +99,13 @@ export default function ChatBot() {
             <div
               className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                 message.sender === 'user'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-purple-600 text-white'
                   : 'bg-gray-200 text-gray-800'
               }`}
             >
               <p className="text-sm">{message.text}</p>
               <p className={`text-xs mt-1 ${
-                message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'
+                message.sender === 'user' ? 'text-purple-100' : 'text-gray-500'
               }`}>
                 {message.timestamp.toLocaleTimeString()}
               </p>
@@ -134,14 +134,14 @@ export default function ChatBot() {
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Typ je bericht hier..."
-            className="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
             rows={1}
             disabled={isLoading}
           />
           <button
             onClick={sendMessage}
             disabled={isLoading || !inputMessage.trim()}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Verzenden...' : 'Verzend'}
           </button>
@@ -149,4 +149,4 @@ export default function ChatBot() {
       </div>
     </div>
   )
-} 
+}
