@@ -1,4 +1,5 @@
 import TestChatBot from '@/components/TestChatBot'
+import DocumentUpload from '@/components/DocumentUpload'
 
 export default function Home() {
   return (
@@ -22,8 +23,11 @@ export default function Home() {
           </p>
         </div>
 
+        {/* Document Upload Component */}
+        <DocumentUpload />
+
         {/* Main Content */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto mt-8">
           
           {/* Setup Instructions */}
           <div className="bg-white rounded-2xl shadow-xl p-8">
@@ -122,4 +126,4 @@ export default function Home() {
       </div>
     </div>
   )
-} 
+}
