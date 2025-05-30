@@ -25,37 +25,8 @@ export default function Home() {
         {/* Main Content */}
         <div className="max-w-4xl mx-auto">
           
-          {/* Features Card */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <h2 className="text-2xl font-bold text-purple-800 mb-6 flex items-center">
-              <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                🚀
-              </span>
-              Template Features
-            </h2>
-            
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span className="text-gray-700">Next.js 15 met TypeScript</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span className="text-gray-700">Tailwind CSS styling</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span className="text-gray-700">Veilige Gemini API verbinding</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span className="text-gray-700">Server-side API routes</span>
-              </div>
-            </div>
-          </div>
-
           {/* Setup Instructions */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8">
             <h2 className="text-2xl font-bold text-purple-800 mb-6 flex items-center">
               <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
                 🔧
@@ -80,7 +51,7 @@ export default function Home() {
                 >
                   <span>Verkrijg API Key</span>
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </a>
               </div>
@@ -107,7 +78,7 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Step 3 - New Test Step */}
+              {/* Step 3 - Test Step */}
               <div className="border-l-4 border-purple-500 pl-6">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Stap 3: Test je API Key
@@ -117,27 +88,6 @@ export default function Home() {
                 </p>
                 <TestChatBot />
               </div>
-            </div>
-          </div>
-
-          {/* API Usage Info */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            <h2 className="text-2xl font-bold text-purple-800 mb-6 flex items-center">
-              <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                💻
-              </span>
-              Begin met Bouwen!
-            </h2>
-            
-            <p className="text-gray-600 mb-4">
-              Je Gemini API is nu klaar voor gebruik! Integreer het in je eigen projecten:
-            </p>
-            
-            <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg">
-              <code className="text-purple-800 font-mono">POST /api/chat</code>
-              <p className="text-purple-600 text-sm mt-1">
-                Verstuur berichten naar Gemini AI via deze endpoint
-              </p>
             </div>
           </div>
 
