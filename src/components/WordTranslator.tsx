@@ -10,39 +10,44 @@ interface Translation {
 export default function WordTranslator() {
   const [word, setWord] = useState('')
   const [translations, setTranslations] = useState<Translation[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleAddWord = (e: React.FormEvent) => {
+  const handleAddWord = async (e: React.FormEvent) => {
     e.preventDefault()
     
     if (!word.trim()) return
 
-    // In a real application, you would call an API here to get the translation
-    // For demo purposes, we'll use a simple mapping
-    const frenchTranslation = {
-      dutch: word.trim(),
-      french: translateToDutch(word.trim())
-    }
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          message: `Translate the Dutch word "${word.trim()}" to French. Only respond with the French translation, nothing else.` 
+        }),
+      })
 
-    setTranslations([...translations, frenchTranslation])
-    setWord('')
-  }
+      const data = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Translation failed')
+      }
 
-  // Simple translation function (for demo purposes)
-  const translateToDutch = (word: string): string => {
-    const translations: { [key: string]: string } = {
-      'hallo': 'bonjour',
-      'dag': 'salut',
-      'kat': 'chat',
-      'hond': 'chien',
-      'huis': 'maison',
-      'auto': 'voiture',
-      'boom': 'arbre',
-      'boek': 'livre',
-      'tafel': 'table',
-      'stoel': 'chaise'
+      const newTranslation = {
+        dutch: word.trim(),
+        french: data.response.trim()
+      }
+
+      setTranslations(prev => [...prev, newTranslation])
+      setWord('')
+    } catch (error) {
+      console.error('Translation error:', error)
+      alert('Er is een fout opgetreden bij het vertalen. Probeer het opnieuw.')
+    } finally {
+      setIsLoading(false)
     }
-    
-    return translations[word.toLowerCase()] || '(vertaling niet beschikbaar)'
   }
 
   return (
@@ -55,12 +60,14 @@ export default function WordTranslator() {
             onChange={(e) => setWord(e.target.value)}
             placeholder="Voer een Nederlands woord in..."
             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isLoading}
           />
           <button
             type="submit"
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300"
+            disabled={isLoading}
           >
-            Vertaal
+            {isLoading ? 'Bezig...' : 'Vertaal'}
           </button>
         </div>
       </form>
