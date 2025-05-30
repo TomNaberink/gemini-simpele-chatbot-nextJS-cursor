@@ -13,10 +13,21 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const arrayBuffer = await file.arrayBuffer()
-    const result = await mammoth.extractRawText({ buffer: Buffer.from(arrayBuffer) })
+    // Convert the file to a Buffer
+    const bytes = await file.arrayBuffer()
+    const buffer = Buffer.from(bytes)
+
+    // Extract text from the Word document
+    const result = await mammoth.extractRawText({ arrayBuffer: bytes })
     
-    return NextResponse.json({ text: result.value })
+    if (!result.value) {
+      throw new Error('Failed to extract text from document')
+    }
+
+    return NextResponse.json({ 
+      text: result.value,
+      messages: result.messages 
+    })
   } catch (error) {
     console.error('Error processing file:', error)
     return NextResponse.json(
