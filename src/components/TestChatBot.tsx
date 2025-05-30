@@ -1,20 +1,21 @@
 'use client'
 
 import { useState } from 'react'
+import VoiceInput from './VoiceInput'
 
 export default function TestChatBot() {
   const [message, setMessage] = useState('')
   const [response, setResponse] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
 
-  const testApiKey = async () => {
+  const handleVoiceTranscript = (transcript: string) => {
+    setMessage(prev => prev + ' ' + transcript)
+  }
+
+  const sendMessage = async () => {
     if (!message.trim()) return
 
     setIsLoading(true)
-    setError('')
-    setResponse('')
-
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
@@ -24,15 +25,16 @@ export default function TestChatBot() {
         body: JSON.stringify({ message }),
       })
 
-      const data = await res.json()
-
       if (!res.ok) {
-        throw new Error(data.error || 'Er is een fout opgetreden')
+        const errorData = await res.json()
+        throw new Error(errorData.error || 'Er is een fout opgetreden')
       }
 
+      const data = await res.json()
       setResponse(data.response)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Er is een fout opgetreden')
+    } catch (error) {
+      console.error('Error:', error)
+      setResponse('Error: ' + (error instanceof Error ? error.message : 'Onbekende fout'))
     } finally {
       setIsLoading(false)
     }
@@ -41,74 +43,56 @@ export default function TestChatBot() {
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      testApiKey()
+      sendMessage()
     }
   }
 
   return (
-    <div className="bg-purple-50 border border-purple-200 rounded-xl p-6">
-      <h3 className="text-lg font-semibold text-purple-800 mb-4 flex items-center">
-        <span className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center mr-2">
-          <span className="text-white text-sm">💬</span>
-        </span>
-        Test je API Key
-      </h3>
-      
-      <div className="space-y-4">
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Typ een vraag voor Gemini..."
-            className="flex-1 px-3 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            disabled={isLoading}
-          />
+    <div className="space-y-4">
+      <div className="bg-gray-50 rounded-lg p-4 border">
+        <div className="flex space-x-3">
+          {/* Text Input */}
+          <div className="flex-1">
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Type je vraag hier of gebruik de microfoon..."
+              className="w-full p-3 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+              rows={3}
+              disabled={isLoading}
+            />
+          </div>
+          
+          {/* Voice Input */}
+          <div className="flex flex-col justify-center">
+            <VoiceInput 
+              onTranscript={handleVoiceTranscript}
+              isDisabled={isLoading}
+            />
+          </div>
+        </div>
+        
+        <div className="flex justify-between items-center mt-3">
+          <div className="text-xs text-gray-500">
+            {message.length > 0 && `${message.length} karakters`}
+          </div>
           <button
-            onClick={testApiKey}
-            disabled={isLoading || !message.trim()}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            onClick={sendMessage}
+            disabled={!message.trim() || isLoading}
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {isLoading ? '⏳' : '🚀'}
+            {isLoading ? 'Bezig...' : 'Verstuur'}
           </button>
         </div>
-
-        {error && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-700 text-sm">
-              ❌ <strong>Fout:</strong> {error}
-            </p>
-            <p className="text-red-600 text-xs mt-1">
-              Controleer of je API key correct is ingesteld in .env.local
-            </p>
-          </div>
-        )}
-
-        {response && (
-          <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-green-800 text-sm font-medium mb-2">
-              ✅ <strong>Succes! Je API key werkt perfect:</strong>
-            </p>
-            <p className="text-gray-700 text-sm bg-white p-3 rounded border">
-              {response}
-            </p>
-          </div>
-        )}
-
-        {isLoading && (
-          <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
-            <div className="flex items-center space-x-2">
-              <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-              </div>
-              <span className="text-purple-700 text-sm">Gemini denkt na...</span>
-            </div>
-          </div>
-        )}
       </div>
+
+      {response && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <h4 className="font-semibold text-blue-800 mb-2">Gemini AI Antwoord:</h4>
+          <div className="text-blue-700 whitespace-pre-wrap">{response}</div>
+        </div>
+      )}
     </div>
   )
 } 

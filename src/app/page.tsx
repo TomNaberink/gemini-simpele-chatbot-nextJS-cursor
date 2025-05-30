@@ -1,4 +1,5 @@
 import TestChatBot from '@/components/TestChatBot'
+import FileUpload from '@/components/FileUpload'
 
 export default function Home() {
   return (
@@ -87,18 +88,42 @@ export default function Home() {
               {/* Step 3 - Test Step */}
               <div className="border-l-4 border-purple-500 pl-6">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 3: Test je API Key
+                  Stap 3: Test je API Key & Spraakherkenning
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  Test of je API key correct werkt met deze simpele chatbot:
+                  Test of je API key correct werkt met deze chatbot. Je kunt nu ook je microfoon gebruiken om vragen in te spreken:
                 </p>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                  <div className="flex items-start space-x-2">
+                    <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                    </svg>
+                    <div>
+                      <p className="text-blue-800 text-sm font-medium">Nieuwe functie: Spraakherkenning!</p>
+                      <p className="text-blue-700 text-sm">
+                        Klik op de microfoon knop en spreek je vraag in. Werkt het beste in Chrome en Edge.
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 <TestChatBot />
               </div>
 
-              {/* Step 4 - Build Step */}
+              {/* Step 4 - File Upload */}
               <div className="border-l-4 border-purple-500 pl-6">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 4: Bouwen maar!
+                  Stap 4: Upload een document (.docx of .pdf)
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Test de file upload functionaliteit met een Word document of PDF:
+                </p>
+                <FileUpload />
+              </div>
+
+              {/* Step 5 - Build Step */}
+              <div className="border-l-4 border-purple-500 pl-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Stap 5: Bouwen maar!
                 </h3>
                 <p className="text-gray-600">
                   Wat ga jij maken om het onderwijs te verbeteren?
