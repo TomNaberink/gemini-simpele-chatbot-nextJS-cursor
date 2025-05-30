@@ -15,7 +15,7 @@ export default function ChatBot() {
       id: 1,
       text: 'Hallo! Ik ben je AI assistent. Waarmee kan ik je helpen?',
       sender: 'bot',
-      timestamp: new Date()
+      timestamp: new Date(0) // Fixed timestamp for initial message
     }
   ])
   const [inputMessage, setInputMessage] = useState('')
