@@ -14,8 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     const arrayBuffer = await file.arrayBuffer()
-    const buffer = Buffer.from(arrayBuffer)
-    const result = await mammoth.extractRawText({ arrayBuffer: buffer })
+    const result = await mammoth.extractRawText({ buffer: Buffer.from(arrayBuffer) })
     
     return NextResponse.json({ text: result.value })
   } catch (error) {
