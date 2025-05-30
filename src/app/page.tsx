@@ -14,7 +14,7 @@ export default function Home() {
           </div>
           
           <h1 className="text-5xl font-bold text-gray-800 mb-4">
-            Gemini AI Template
+            Gemini API Template
           </h1>
           
           <p className="text-xl text-purple-700 font-medium">
@@ -54,6 +54,12 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </a>
+                
+                <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                  <p className="text-orange-800 text-sm">
+                    ⚠️ <strong>Let op</strong>, je kunt gratis en risicovrij oefenen met de Gemini API. Daarnaast kun je 300,- dollar gratis budget krijgen. Als dat op, dan moet je het koppelen aan je creditcard. Zorg ervoor dat je weet wat je doet op dat moment!
+                  </p>
+                </div>
               </div>
 
               {/* Step 2 */}
