@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import mammoth from 'mammoth'
-import pdf from 'pdf-parse'
+import pdf from 'pdf-parse/lib/pdf-parse.js'
 
 export async function POST(request: NextRequest) {
   try {
@@ -67,4 +67,4 @@ export async function GET() {
     { error: 'GET method not allowed. Use POST to upload files.' },
     { status: 405 }
   )
-} 
+}
