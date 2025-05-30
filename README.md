@@ -4,6 +4,19 @@
 >
 > **Gemaakt door Tom Naberink**
 
+## 🌟 **BOLT.NEW COMPATIBLE** 🌟
+
+**Dit project werkt perfect in Bolt.new!** Voor Bolt-gebruikers: bekijk `README-BOLT.md` voor specifieke instructies en troubleshooting.
+
+**Quick Bolt Setup:**
+1. `npm install`
+2. Maak `.env.local` met je `GEMINI_API_KEY`
+3. `npm run dev`
+
+Optional: Gebruik `next.config.bolt.js` als vervangend configuratiebestand bij build-problemen.
+
+---
+
 Een direct bruikbare Next.js template met een veilige Gemini API integratie en een ingebouwde API key tester. Ideaal als startpunt voor jouw innovatieve AI-projecten, speciaal gericht op het onderwijs!
 
 ## ✨ Features
@@ -15,6 +28,9 @@ Een direct bruikbare Next.js template met een veilige Gemini API integratie en e
 - 🚀 **Next.js 15 & TypeScript**: Gebouwd met de nieuwste technologieën.
 - 🛠️ **Ultra-Lean**: Geen overbodige code, enkel de essentials.
 - 💡 **Onderwijs Focus**: Met een call-to-action gericht op onderwijsinnovatie.
+- 🎤 **Spraakherkenning**: Nederlandse microfoon input ondersteuning
+- 📄 **File Upload**: Upload en analyseer .docx en .pdf bestanden
+- ⚡ **Bolt.new Ready**: Volledig geoptimaliseerd voor online ontwikkelomgevingen
 
 ## 🚀 Snelle Start: In 4 Stappen naar Gemini!
 

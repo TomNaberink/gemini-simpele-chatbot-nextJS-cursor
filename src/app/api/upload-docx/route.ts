@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import mammoth from 'mammoth'
-import pdf from 'pdf-parse'
 
 export async function POST(request: NextRequest) {
   try {
@@ -32,15 +31,51 @@ export async function POST(request: NextRequest) {
     let fileType = ''
 
     if (isDocx) {
-      // Extract text from .docx using mammoth
-      const result = await mammoth.extractRawText({ buffer })
-      textContent = result.value
-      fileType = 'Word Document (.docx)'
+      try {
+        // Extract text from .docx using mammoth
+        const result = await mammoth.extractRawText({ buffer })
+        textContent = result.value
+        fileType = 'Word Document (.docx)'
+        
+        if (!textContent || textContent.trim().length === 0) {
+          return NextResponse.json({ 
+            error: 'Geen tekst gevonden in het Word document. Controleer of het bestand tekst bevat.' 
+          }, { status: 400 })
+        }
+      } catch (error) {
+        console.error('Error processing DOCX:', error)
+        return NextResponse.json({ 
+          error: 'Fout bij het verwerken van het Word document. Controleer of het bestand niet corrupt is.' 
+        }, { status: 500 })
+      }
     } else if (isPdf) {
-      // Extract text from .pdf using pdf-parse
-      const pdfData = await pdf(buffer)
-      textContent = pdfData.text
-      fileType = 'PDF Document (.pdf)'
+      try {
+        // Dynamic import to prevent loading issues
+        const pdf = (await import('pdf-parse')).default
+        
+        // Extract text from .pdf using pdf-parse
+        const pdfData = await pdf(buffer)
+        textContent = pdfData.text
+        fileType = 'PDF Document (.pdf)'
+        
+        if (!textContent || textContent.trim().length === 0) {
+          return NextResponse.json({ 
+            error: 'Geen tekst gevonden in het PDF document. Controleer of het bestand tekst bevat (niet alleen afbeeldingen).' 
+          }, { status: 400 })
+        }
+      } catch (error) {
+        console.error('Error processing PDF:', error)
+        return NextResponse.json({ 
+          error: 'Fout bij het verwerken van het PDF document. Controleer of het bestand niet corrupt is of beveiligingsbeperkingen heeft.' 
+        }, { status: 500 })
+      }
+    }
+
+    // Validate extracted content
+    if (!textContent || textContent.trim().length === 0) {
+      return NextResponse.json({ 
+        error: 'Geen tekst geëxtraheerd uit het document. Het bestand is mogelijk leeg of bevat alleen afbeeldingen.' 
+      }, { status: 400 })
     }
 
     return NextResponse.json({
@@ -56,7 +91,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error processing file:', error)
     return NextResponse.json(
-      { error: 'Er is een fout opgetreden bij het verwerken van het bestand' },
+      { error: 'Er is een onverwachte fout opgetreden bij het verwerken van het bestand. Probeer het opnieuw.' },
       { status: 500 }
     )
   }

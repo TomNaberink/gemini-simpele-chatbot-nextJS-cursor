@@ -1,0 +1,33 @@
+# Bolt.new ignore patterns
+.next/
+node_modules/
+.env.local
+.env
+*.log
+
+# Build artifacts
+dist/
+build/
+out/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+
+# Cache directories
+.cache/
+.npm/
+
+# Test coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.backup 

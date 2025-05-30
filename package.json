@@ -1,12 +1,19 @@
 {
   "name": "gemini-chatbot",
   "version": "0.1.0",
+  "description": "🤖 AI Chatbot met Gemini API, spraakherkenning en file upload - Perfect voor Bolt.new!",
+  "keywords": ["nextjs", "gemini", "ai", "chatbot", "spraakherkenning", "file-upload", "bolt", "onderwijs"],
   "private": true,
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
