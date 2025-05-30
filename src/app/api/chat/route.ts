@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Haal het Gemini model op - gebruik het nieuwe model
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    // Haal het Gemini model op - gebruik het nieuwste model
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-05-20' })
 
     // Genereer een response van Gemini
     const result = await model.generateContent(message)

@@ -88,6 +88,16 @@ export default function Home() {
                 </p>
                 <TestChatBot />
               </div>
+
+              {/* Step 4 - Build Step */}
+              <div className="border-l-4 border-purple-500 pl-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Stap 4: Bouwen maar!
+                </h3>
+                <p className="text-gray-600">
+                  Wat ga jij maken om het onderwijs te verbeteren?
+                </p>
+              </div>
             </div>
           </div>
 
