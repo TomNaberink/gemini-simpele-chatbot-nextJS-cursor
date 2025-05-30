@@ -1,3 +1,5 @@
+import TestChatBot from '@/components/TestChatBot'
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
@@ -53,7 +55,7 @@ export default function Home() {
           </div>
 
           {/* Setup Instructions */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-2xl font-bold text-purple-800 mb-6 flex items-center">
               <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
                 🔧
@@ -105,34 +107,37 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Step 3 */}
+              {/* Step 3 - New Test Step */}
               <div className="border-l-4 border-purple-500 pl-6">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 3: Start de development server
+                  Stap 3: Test je API Key
                 </h3>
-                <p className="text-gray-600 mb-3">
-                  Start je project met het volgende commando:
+                <p className="text-gray-600 mb-4">
+                  Test of je API key correct werkt met deze simpele chatbot:
                 </p>
-                <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
-                  <code>npm run dev</code>
-                </div>
+                <TestChatBot />
               </div>
+            </div>
+          </div>
 
-              {/* Step 4 */}
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  Stap 4: Begin met bouwen!
-                </h3>
-                <p className="text-gray-600 mb-3">
-                  Je Gemini API is nu beschikbaar op:
-                </p>
-                <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg">
-                  <code className="text-purple-800 font-mono">POST /api/chat</code>
-                  <p className="text-purple-600 text-sm mt-1">
-                    Verstuur berichten naar Gemini AI via deze endpoint
-                  </p>
-                </div>
-              </div>
+          {/* API Usage Info */}
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <h2 className="text-2xl font-bold text-purple-800 mb-6 flex items-center">
+              <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                💻
+              </span>
+              Begin met Bouwen!
+            </h2>
+            
+            <p className="text-gray-600 mb-4">
+              Je Gemini API is nu klaar voor gebruik! Integreer het in je eigen projecten:
+            </p>
+            
+            <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg">
+              <code className="text-purple-800 font-mono">POST /api/chat</code>
+              <p className="text-purple-600 text-sm mt-1">
+                Verstuur berichten naar Gemini AI via deze endpoint
+              </p>
             </div>
           </div>
 
