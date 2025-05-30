@@ -1,12 +1,11 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 
 export default function JokeChatBot() {
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'bot', content: string }>>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const systemPrompt = `Je bent een vrolijke chatbot die graag grapjes maakt. 
 Als iemand om een grap vraagt, vertel je een leuke, nette grap. 
@@ -14,11 +13,15 @@ Als iemand iets anders vraagt, probeer je op een grappige manier te antwoorden e
 Houd je antwoorden kort en bondig.
 Gebruik emoji's om je antwoorden leuker te maken.`
 
-  const sendMessage = async (content: string) => {
-    if (!content.trim()) return
+  const sendMessage = async () => {
+    if (!input.trim()) return
 
+    const userMessage = input.trim()
+    setInput('')
     setIsLoading(true)
-    setMessages(prev => [...prev, { role: 'user', content }])
+
+    // Add user message to chat
+    setMessages(prev => [...prev, { role: 'user', content: userMessage }])
 
     try {
       const response = await fetch('/api/chat', {
@@ -27,7 +30,7 @@ Gebruik emoji's om je antwoorden leuker te maken.`
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: `${systemPrompt}\n\nGebruiker: ${content}`
+          message: `${systemPrompt}\n\nGebruiker: ${userMessage}`
         }),
       })
 
@@ -47,51 +50,10 @@ Gebruik emoji's om je antwoorden leuker te maken.`
     }
   }
 
-  const handleTextSubmit = () => {
-    if (!input.trim()) return
-    const message = input.trim()
-    setInput('')
-    sendMessage(message)
-  }
-
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (!file) return
-
-    if (!file.name.endsWith('.docx')) {
-      alert('Please upload a Word (.docx) file')
-      return
-    }
-
-    setIsLoading(true)
-    const formData = new FormData()
-    formData.append('file', file)
-
-    try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to upload file')
-      }
-
-      const data = await response.json()
-      sendMessage(`Inhoud van het bestand ${file.name}:\n${data.text}`)
-    } catch (error) {
-      setMessages(prev => [...prev, { 
-        role: 'bot', 
-        content: '😅 Sorry, er ging iets mis bij het uploaden van het bestand.' 
-      }])
-      setIsLoading(false)
-    }
-  }
-
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      handleTextSubmit()
+      sendMessage()
     }
   }
 
@@ -102,7 +64,6 @@ Gebruik emoji's om je antwoorden leuker te maken.`
           <div className="text-center text-gray-500 mt-8">
             <p>👋 Hoi! Ik ben de Grappenmaker Bot!</p>
             <p className="mt-2">Vraag me om een grap of stel me een vraag!</p>
-            <p className="mt-2">Je kunt ook een Word-bestand uploaden! 📄</p>
           </div>
         )}
         
@@ -137,41 +98,23 @@ Gebruik emoji's om je antwoorden leuker te maken.`
       </div>
 
       <div className="border-t p-4">
-        <div className="flex flex-col space-y-2">
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Typ je bericht..."
-              className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-              disabled={isLoading}
-            />
-            <button
-              onClick={handleTextSubmit}
-              disabled={isLoading || !input.trim()}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {isLoading ? '⏳' : '➤'}
-            </button>
-          </div>
-          <div className="flex items-center space-x-2">
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileUpload}
-              accept=".docx"
-              className="hidden"
-            />
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isLoading}
-              className="w-full px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
-            >
-              📄 Upload Word bestand
-            </button>
-          </div>
+        <div className="flex space-x-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Typ je bericht..."
+            className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            disabled={isLoading}
+          />
+          <button
+            onClick={sendMessage}
+            disabled={isLoading || !input.trim()}
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {isLoading ? '⏳' : '➤'}
+          </button>
         </div>
       </div>
     </div>
